@@ -5,7 +5,7 @@ class Neuron:
     def __init__(self):
         self.weight = 0.5
         self.smoothing = 0.00001
-        self.lastError = 0
+        self.lastError = 1
 
     def processInputData(self, inputN):
         
@@ -23,28 +23,21 @@ class Neuron:
         self.weight += correction
 
 
-
 def main():
     
     km = 100
     miles = 62.1371
 
     nr = Neuron()
-
-    for iter in range(1000000):
-
+    i = 0
+    while  ((nr.lastError > nr.smoothing) or (nr.lastError < -nr.smoothing)):
         nr.train(km, miles)
-        print(iter)
-
-        # if ((nr.lastError > nr.smoothing) or (nr.lastError < -nr.smoothing)):
-        #     nr.train(km, miles)
-        #     print(iter)
+        print(f'Шаг - {i}, Вес - {nr.weight}, Последняя ошибка - {nr.lastError}')
+        i += 1
+            
     print(nr.processInputData(km))
-
-
-
-    
-
+      
 
 if __name__ == "__main__":
     main()
+    
